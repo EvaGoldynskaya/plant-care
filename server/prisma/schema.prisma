@@ -20,8 +20,21 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   plants    Plant[]
+  rooms     Room[]
 
   @@map("users")
+}
+
+model Room {
+  id        Int      @id @default(autoincrement())
+  name      String
+  userId    Int
+  createdAt DateTime @default(now())
+  plants    Plant[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("rooms")
 }
 
 model Plant {
@@ -29,10 +42,25 @@ model Plant {
   commonName String
   name       String?
   userId     Int
+  roomId     Int?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  actions PlantAction[]
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room Room? @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
   @@map("plants")
+}
+
+model PlantAction {
+  id         Int      @id @default(autoincrement())
+  type       String
+  note       String?
+  plantId    Int
+  createdAt  DateTime @default(now())
+
+  plant Plant? @relation(fields: [plantId], references: [id], onDelete: Cascade)
+
+  @@map("plant_actions")
 }

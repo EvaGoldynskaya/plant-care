@@ -16,6 +16,7 @@ interface LoginUserInput {
 
 const normalizeEmail = (email: string) => email.trim().toLowerCase();
 
+//Генерация JWT токена
 const generateToken = (user: { id: number; email: string }) => {
   const secret = process.env.JWT_SECRET;
 
@@ -28,6 +29,7 @@ const generateToken = (user: { id: number; email: string }) => {
   });
 };
 
+//Регистрация нового пользователя
 export const registerUser = async ({ email, password, name }: RegisterUserInput) => {
   if (!email || !password) {
     throw new Error('Email and password are required');
@@ -66,6 +68,7 @@ export const registerUser = async ({ email, password, name }: RegisterUserInput)
   };
 };
 
+//Вход пользователя
 export const loginUser = async ({ email, password }: LoginUserInput) => {
   if (!email || !password) {
     throw new Error('Email and password are required');
@@ -94,4 +97,21 @@ export const loginUser = async ({ email, password }: LoginUserInput) => {
     ...safeUser,
     token,
   };
+};
+
+//Удаление аккаунта пользователя
+export const deleteUserById = async (userId: number) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  return prisma.user.delete({
+    where: { id: userId },
+  });
 };
