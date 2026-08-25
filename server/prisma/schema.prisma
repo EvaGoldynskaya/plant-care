@@ -22,6 +22,7 @@ model User {
   plants    Plant[]
   rooms     Room[]
 
+  @@index([email])
   @@map("users")
 }
 
@@ -34,12 +35,15 @@ model Room {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
+  @@index([userId, name])
   @@map("rooms")
 }
 
 model Plant {
   id         Int      @id @default(autoincrement())
   commonName String
+  plantbookPid String?
   name       String?
   userId     Int
   roomId     Int?
@@ -50,6 +54,8 @@ model Plant {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   room Room? @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
+  @@index([userId, name])
   @@map("plants")
 }
 
@@ -62,5 +68,7 @@ model PlantAction {
 
   plant Plant? @relation(fields: [plantId], references: [id], onDelete: Cascade)
 
+  @@index([plantId])
+  @@index([plantId, type])
   @@map("plant_actions")
 }
