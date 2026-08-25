@@ -18,6 +18,13 @@ app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({ status: 'ok' });
 });
 
+app.use(cors({
+  origin: 'http://localhost:5173', // URL вашего клиента
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error(err);
   res.status(500).json({
