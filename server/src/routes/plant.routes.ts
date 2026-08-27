@@ -5,6 +5,7 @@ import {
   createPlantAction,
   deletePlant,
   getPlantActions,
+  getPlantById,
   getPlants,
   updatePlant,
 } from '../controllers/plant.controller';
@@ -14,6 +15,7 @@ const router = Router();
 
 router.use(authenticate);
 router.get('/plants', getPlants);
+router.get('/plants/:id', getPlantById);
 router.post('/createPlant', createPlant);
 router.put('/updatePlant/:id', updatePlant);
 router.delete('/deletePlant/:id', deletePlant);
