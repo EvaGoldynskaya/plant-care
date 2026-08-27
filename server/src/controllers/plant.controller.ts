@@ -5,6 +5,7 @@ import {
   createNewPlantAction,
   deletePlantById,
   getPlantActionsByPlant,
+  getPlantByIdUser,
   getPlantsByUser,
   updatePlantById,
 } from '../services/plant.service';
@@ -35,6 +36,24 @@ export const getPlants = async (req: Request, res: Response) => {
     return res.status(200).json({ ...plants });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to fetch plants';
+    return res.status(400).json({ message });
+  }
+};
+
+export const getPlantById = async (req: Request, res: Response) => {
+  try {
+    const userId = req.user?.id;
+    const { id } = req.params;
+
+    if (!userId) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    const plant = await getPlantByIdUser(userId, Number(id));
+
+    return res.status(200).json({ ...plant });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to fetch plant';
     return res.status(400).json({ message });
   }
 };
@@ -116,9 +135,9 @@ export const createPlantAction = async (req: Request, res: Response) => {
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    const plant = await createNewPlantAction({ ...req.body });
+    const plantAction = await createNewPlantAction({ ...req.body });
 
-    return res.status(200).json({ message: 'Plant action created', plant });
+    return res.status(200).json({ message: 'Plant action created', plantAction });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to create plant action';
     return res.status(400).json({ message });
