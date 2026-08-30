@@ -1,0 +1,11 @@
+{
+	"bracketSpacing": true,
+	"singleQuote": false,
+	"jsxSingleQuote": false,
+	"semi": false,
+	"bracketSameLine": true,
+	"useTabs": true,
+	"trailingComma": "es5",
+	"arrowParens": "avoid",
+	"plugins": ["prettier-plugin-multiline-arrays"]
+}
