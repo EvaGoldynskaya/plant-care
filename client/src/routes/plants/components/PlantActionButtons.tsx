@@ -36,7 +36,7 @@ export default function PlantActionButtons({
 						<Radio.Group
 							optionType="button"
 							vertical
-							options={Object.entries(plantActionType).map(([value]) => ({
+							options={Object.entries(plantActionType).map(([_key, value]) => ({
 								label: value,
 								value: value,
 							}))}></Radio.Group>

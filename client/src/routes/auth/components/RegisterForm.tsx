@@ -11,9 +11,12 @@ interface RegisterFormProps {
 }
 
 const RegisterForm = observer(({ className, onSuccess }: RegisterFormProps) => {
+	
+	const {register, isLoading} = authStore
+
 	const handleFinish = async (values: RegisterData) => {
 		const { confirmPassword: _confirmPassword, ...registerData } = values
-		const result = await authStore.register(registerData)
+		const result = await register(registerData)
 		if (result.success) {
 			onSuccess?.()
 		} else {
@@ -97,7 +100,7 @@ const RegisterForm = observer(({ className, onSuccess }: RegisterFormProps) => {
 					type="primary"
 					htmlType="submit"
 					block
-					loading={authStore.isLoading}
+					loading={isLoading}
 					className={styles.submitButton}>
 					Зарегистрироваться
 				</Button>

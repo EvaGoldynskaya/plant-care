@@ -11,8 +11,11 @@ interface LoginFormProps {
 }
 
 const LoginForm = observer(({ className, onSuccess }: LoginFormProps) => {
+	
+	const {login, isLoading} = authStore
+	
 	const handleFinish = async (values: LoginData) => {
-		const result = await authStore.login(values)
+		const result = await login(values)
 		if (result.success) {
 			onSuccess?.()
 		} else {
@@ -58,7 +61,7 @@ const LoginForm = observer(({ className, onSuccess }: LoginFormProps) => {
 					type="primary"
 					htmlType="submit"
 					block
-					loading={authStore.isLoading}
+					loading={isLoading}
 					className={styles.submitButton}>
 					Войти
 				</Button>

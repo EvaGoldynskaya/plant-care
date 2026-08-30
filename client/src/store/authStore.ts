@@ -46,8 +46,10 @@ class AuthStore {
 	}
 
 	register = async (data: RegisterData) => {
-		this.isLoading = true
-		this.error = null
+		runInAction(() => {
+			this.isLoading = true
+			this.error = null
+		})
 
 		try {
 			const response = await authApi.register(data)
@@ -70,8 +72,10 @@ class AuthStore {
 	}
 
 	login = async (data: LoginData) => {
-		this.isLoading = true
-		this.error = null
+		runInAction(() => {
+			this.isLoading = true
+			this.error = null
+		})
 
 		try {
 			const response = await authApi.login(data)
@@ -100,7 +104,11 @@ class AuthStore {
 	get isAuthenticated(): boolean {
 		return !!this.token
 	}
-}
+
+	clearError = () => {
+		this.error = null
+	}
+} 
 
 const authStore = new AuthStore()
 export default authStore

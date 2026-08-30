@@ -3,7 +3,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: linear-gradient(135deg, #76c292 0%, #429e65 100%);
 	padding: 20px;
 }
 
@@ -21,7 +21,7 @@
 
 .title {
 	margin-bottom: 8px !important;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: linear-gradient(135deg,  #76c292 0%, #429e65 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -40,14 +40,14 @@
 	height: 48px;
 	font-size: 16px;
 	font-weight: 600;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: linear-gradient(135deg, #76c292 0%, #429e65 100%);
 	border: none;
 	transition: all 0.3s ease;
 }
 
 .submitButton:hover {
 	transform: translateY(-2px);
-	box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+	box-shadow: 0 8px 25px rgba(113, 179, 127, 0.4);
 }
 
 .submitButton:active {
@@ -82,8 +82,8 @@
 }
 
 .socialButton:hover {
-	border-color: #667eea;
-	color: #667eea;
+	border-color: #76c292;
+	color: #429e65;
 }
 
 .errorContainer {

@@ -13,6 +13,8 @@ const AuthPage = observer(() => {
 	const navigate = useNavigate()
 	const [activeTab, setActiveTab] = useState<string>("login")
 
+	const { clearError, error } = authStore
+
 	const handleAuthSuccess = () => {
 		message.success(
 			activeTab === "login" ? "Добро пожаловать!" : "Регистрация успешна!"
@@ -22,7 +24,7 @@ const AuthPage = observer(() => {
 
 	const handleTabChange = (key: string) => {
 		setActiveTab(key)
-		authStore.error = null
+		clearError()
 	}
 
 	return (
@@ -66,9 +68,9 @@ const AuthPage = observer(() => {
 					]}
 				/>
 
-				{authStore.error && (
+				{error && (
 					<div className={styles.errorContainer}>
-						<Text type="danger">{authStore.error}</Text>
+						<Text type="danger">{error}</Text>
 					</div>
 				)}
 			</Card>

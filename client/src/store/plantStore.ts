@@ -315,17 +315,26 @@ class PlantStore {
 					)
 					updatedActions = updatedActions.slice(0, 5)
 
-					this.currentPlant = { ...this.currentPlant, actions: updatedActions }
+					this.currentPlant = { 
+						...this.currentPlant, 
+						actions: updatedActions, 
+						...(action.type === plantActionType.WATER && {
+                lastAction: createdAction
+            }),
+					}
 
 					const index = this.plants.findIndex(p => p.id === action.plantId)
 					if (index !== -1) {
 						this.plants[index] = {
 							...this.plants[index],
 							actions: updatedActions,
+							...(action.type === plantActionType.WATER && {
+                lastAction: createdAction
+            	}),
 						}
-					}
 					this.persistPlants()
 					this.persistCurrentPlant()
+					}
 				}
 			})
 			return { success: true, data: createdAction }
