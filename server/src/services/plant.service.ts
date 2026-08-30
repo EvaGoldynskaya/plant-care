@@ -55,7 +55,10 @@ export const getPlantsByUser = async (
 
 	const where: any = { userId }
 	if (name) {
-		where.name = { contains: name, mode: "insensitive" }
+		where.OR = [
+			{ name: { contains: name, mode: "insensitive" } },
+			{ commonName: { contains: name, mode: "insensitive" } }
+		]
 	}
 
 	const [plants, total] = await Promise.all([

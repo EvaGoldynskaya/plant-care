@@ -1,35 +1,28 @@
-import { useEffect } from "react"
 import {
 	Button,
-	Empty,
-	Flex,
-	Listy,
-	Space,
-	Spin,
-	Typography,
 	message,
+	Space,
 } from "antd"
 import { observer } from "mobx-react-lite"
 import { useNavigate } from "react-router-dom"
 import authStore from "../../store/authStore"
 import plantStore from "../../store/plantStore"
-import type { Plant } from "../../types/plant.types"
 import dayjs from "dayjs"
+import AllPlantsList from "./components/AllPlantsList"
+import { useEffect } from "react"
 
 const PlantsPage = observer(() => {
 	const navigate = useNavigate()
 
-	const { plants, plantIsLoading: isLoading } = plantStore
-
 	useEffect(() => {
-		const loadPlants = async () => {
-			const result = await plantStore.fetchPlants()
-			if (!result.success) {
-				message.error(result.error)
-			}
+	const loadPlants = async () => {
+		const result = await plantStore.fetchPlants()
+		if (!result.success) {
+			message.error(result.error)
 		}
-		loadPlants()
-	}, [])
+	}
+	loadPlants()
+}, []) 
 
 	const handleLogout = () => {
 		plantStore.resetPlants()
@@ -41,9 +34,8 @@ const PlantsPage = observer(() => {
 		navigate("/plants/add")
 	}
 
-	const handlePlantClick = (id: number) => {
-		//setCurrentPlant(id)
-		navigate(`/plants/${id}`)
+	const handleAddRoom = () => {
+		navigate("/plants/add")
 	}
 
 	const formatDate = (dateString: string): string => {
@@ -63,6 +55,9 @@ const PlantsPage = observer(() => {
 					<Button color="green" variant="solid" onClick={handleAddPlant}>
 						Добавить растение
 					</Button>
+					<Button color="blue" variant="solid" onClick={handleAddRoom}>
+						Добавить команту
+					</Button>
 				</Space>
 				<Space size="middle" wrap>
 					<Button onClick={handleLogout} color="danger" variant="outlined">
@@ -70,43 +65,7 @@ const PlantsPage = observer(() => {
 					</Button>
 				</Space>
 			</div>
-
-			{isLoading ? (
-				<div style={{ textAlign: "center", padding: 48 }}>
-					<Spin size="large" />
-				</div>
-			) : plants.length === 0 ? (
-				<>
-					<Empty description="У вас пока нет растений" />
-				</>
-			) : (
-				<Listy<Plant>
-					items={plants}
-					rowKey="id"
-					height={400}
-					itemRender={item => (
-						<div onClick={() => handlePlantClick(item.id)}>
-							<Flex gap="middle" align="flex-start">
-								<Flex vertical flex="auto" style={{ minWidth: 0 }}>
-									<Flex justify="space-between" gap="small">
-										<Typography.Text strong>{item.name}</Typography.Text>
-									</Flex>
-									<Flex justify="left" gap="small">
-										<Typography.Text type="secondary">
-											{item.commonName}
-										</Typography.Text>
-										{item.lastAction?.createdAt && (
-											<Typography.Text type="secondary">
-												Последний полив: {formatDate(item.lastAction.createdAt)}
-											</Typography.Text>
-										)}
-									</Flex>
-								</Flex>
-							</Flex>
-						</div>
-					)}
-				/>
-			)}
+			<AllPlantsList formatDate={formatDate}></AllPlantsList>
 		</div>
 	)
 })

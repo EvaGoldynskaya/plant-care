@@ -89,17 +89,15 @@ class PlantStore {
 		localStorage.removeItem("totalPlants")
 	}
 
-	fetchPlants = async () => {
-		if (this.plants.length > 0 && !this.plantIsLoading) {
-			return { success: true, data: this.plants }
-		}
+	fetchPlants = async (name?:string) => {
 
 		this.plantIsLoading = true
 		this.error = null
 		try {
 			const response = await plantsApi.getPlants(
 				this.plantPage,
-				this.plantLimit
+				this.plantLimit,
+				name
 			)
 			runInAction(() => {
 				this.plants = response.data
@@ -249,6 +247,7 @@ class PlantStore {
 			runInAction(() => {
 				this.plants.push(newPlant)
 				this.plantIsLoading = false
+				this.totalPlants +=1
 				this.persistPlants()
 			})
 			return { success: true, data: newPlant }
@@ -391,6 +390,12 @@ class PlantStore {
 
 	clearError = () => {
 		this.error = null
+	}
+
+	changePage = (page:number) => {
+		console.log("changePage page", page)
+		this.plantPage = page
+		console.log("changePage this.plantPage", this.plantPage)
 	}
 }
 
