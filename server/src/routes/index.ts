@@ -1,13 +1,13 @@
-import { Router } from 'express';
+import { Router } from "express"
 
-import userRoutes from './user.routes';
-import plantRoutes from './plant.routes';
-import roomRoutes from './room.routes';
+import userRoutes from "./user.routes"
+import plantRoutes from "./plant.routes"
+import roomRoutes from "./room.routes"
 
-const router = Router();
+const router = Router()
 
-router.use('/api', userRoutes);
-router.use('/api', plantRoutes);
-router.use('/api', roomRoutes);
+router.use("/api", userRoutes)
+router.use("/api", plantRoutes)
+router.use("/api", roomRoutes)
 
-export default router;
+export default router

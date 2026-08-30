@@ -1,117 +1,121 @@
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 
-import prisma from '../lib/prisma';
+import prisma from "../lib/prisma"
 
 interface RegisterUserInput {
-  email: string;
-  password: string;
-  name?: string;
+	email: string
+	password: string
+	name?: string
 }
 
 interface LoginUserInput {
-  email: string;
-  password: string;
+	email: string
+	password: string
 }
 
-const normalizeEmail = (email: string) => email.trim().toLowerCase();
+const normalizeEmail = (email: string) => email.trim().toLowerCase()
 
 //Генерация JWT токена
 const generateToken = (user: { id: number; email: string }) => {
-  const secret = process.env.JWT_SECRET;
+	const secret = process.env.JWT_SECRET
 
-  if (!secret) {
-    throw new Error('JWT_SECRET is not defined');
-  }
+	if (!secret) {
+		throw new Error("JWT_SECRET is not defined")
+	}
 
-  return jwt.sign({ userId: user.id }, secret, {
-    expiresIn: '7d',
-  });
-};
+	return jwt.sign({ userId: user.id }, secret, {
+		expiresIn: "7d",
+	})
+}
 
 //Регистрация нового пользователя
-export const registerUser = async ({ email, password, name }: RegisterUserInput) => {
-  if (!email || !password) {
-    throw new Error('Email and password are required');
-  }
+export const registerUser = async ({
+	email,
+	password,
+	name,
+}: RegisterUserInput) => {
+	if (!email || !password) {
+		throw new Error("Email and password are required")
+	}
 
-  const normalizedEmail = normalizeEmail(email);
+	const normalizedEmail = normalizeEmail(email)
 
-  if (password.length < 6) {
-    throw new Error('Password must contain at least 6 characters');
-  }
+	if (password.length < 6) {
+		throw new Error("Password must contain at least 6 characters")
+	}
 
-  const existingUser = await prisma.user.findUnique({
-    where: { email: normalizedEmail },
-  });
+	const existingUser = await prisma.user.findUnique({
+		where: { email: normalizedEmail },
+	})
 
-  if (existingUser) {
-    throw new Error('User with this email already exists');
-  }
+	if (existingUser) {
+		throw new Error("User with this email already exists")
+	}
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+	const hashedPassword = await bcrypt.hash(password, 10)
 
-  const user = await prisma.user.create({
-    data: {
-      email: normalizedEmail,
-      password: hashedPassword,
-      name: name?.trim() || null,
-    },
-  });
+	const user = await prisma.user.create({
+		data: {
+			email: normalizedEmail,
+			password: hashedPassword,
+			name: name?.trim() || null,
+		},
+	})
 
-  const { password: _password, ...safeUser } = user;
-  const token = generateToken({ id: user.id, email: user.email });
+	const { password: _password, ...safeUser } = user
+	const token = generateToken({ id: user.id, email: user.email })
 
-  return {
-    ...safeUser,
-    token,
-  };
-};
+	return {
+		...safeUser,
+		token,
+	}
+}
 
 //Вход пользователя
 export const loginUser = async ({ email, password }: LoginUserInput) => {
-  if (!email || !password) {
-    throw new Error('Email and password are required');
-  }
+	if (!email || !password) {
+		throw new Error("Email and password are required")
+	}
 
-  const normalizedEmail = normalizeEmail(email);
+	const normalizedEmail = normalizeEmail(email)
 
-  const user = await prisma.user.findUnique({
-    where: { email: normalizedEmail },
-  });
+	const user = await prisma.user.findUnique({
+		where: { email: normalizedEmail },
+	})
 
-  if (!user) {
-    throw new Error('Invalid email or password');
-  }
+	if (!user) {
+		throw new Error("Invalid email or password")
+	}
 
-  const isMatch = await bcrypt.compare(password, user.password);
+	const isMatch = await bcrypt.compare(password, user.password)
 
-  if (!isMatch) {
-    throw new Error('Invalid email or password');
-  }
+	if (!isMatch) {
+		throw new Error("Invalid email or password")
+	}
 
-  const { password: _password, ...safeUser } = user;
-  const token = generateToken({ id: user.id, email: user.email });
+	const { password: _password, ...safeUser } = user
+	const token = generateToken({ id: user.id, email: user.email })
 
-  return {
-    ...safeUser,
-    token,
-  };
-};
+	return {
+		...safeUser,
+		token,
+	}
+}
 
 //Удаление аккаунта пользователя
 export const deleteUserById = async (userId: number) => {
-  const user = await prisma.user.findFirst({
-    where: {
-      id: userId,
-    },
-  });
+	const user = await prisma.user.findFirst({
+		where: {
+			id: userId,
+		},
+	})
 
-  if (!user) {
-    throw new Error('User not found');
-  }
+	if (!user) {
+		throw new Error("User not found")
+	}
 
-  return prisma.user.delete({
-    where: { id: userId },
-  });
-};
+	return prisma.user.delete({
+		where: { id: userId },
+	})
+}
