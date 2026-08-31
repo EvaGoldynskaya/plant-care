@@ -78,10 +78,7 @@ export const authApi = {
 }
 
 export const roomApi = {
-	getRooms: async (
-		page?: number,
-		limit?: number
-	): Promise<Room[]> => {
+	getRooms: async (page?: number, limit?: number): Promise<Room[]> => {
 		const res = await api.get<RoomsResponse>("/rooms", {
 			params: { page, limit },
 		})
@@ -96,7 +93,7 @@ export const roomApi = {
 		const res = await api.post<RoomMutationResponse>(`/updateRoom/${id}`, room)
 		return res.data.room
 	},
-	deleteRoom: async (id: number,): Promise<Room> => {
+	deleteRoom: async (id: number): Promise<Room> => {
 		const res = await api.post<RoomMutationResponse>(`/deleteRoom/${id}`)
 		return res.data.room
 	},

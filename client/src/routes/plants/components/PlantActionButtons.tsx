@@ -27,7 +27,12 @@ export default function PlantActionButtons({
 			<Space align="end" size="middle">
 				<Space orientation="vertical" size="small">
 					<Form.Item name="note" noStyle>
-						<TextArea className={styles.customInput} placeholder="Заметка" rows={4} style={{ width: 200 }} />
+						<TextArea
+							className={styles.customInput}
+							placeholder="Заметка"
+							rows={4}
+							style={{ width: 200 }}
+						/>
 					</Form.Item>
 
 					<Form.Item
@@ -45,7 +50,11 @@ export default function PlantActionButtons({
 					</Form.Item>
 
 					<Form.Item noStyle>
-						<Button type="primary" htmlType="submit" className={styles.customButton} block>
+						<Button
+							type="primary"
+							htmlType="submit"
+							className={styles.customButton}
+							block>
 							Добавить
 						</Button>
 					</Form.Item>

@@ -57,16 +57,11 @@ class PlantStore {
 		localStorage.removeItem("plantTotal")
 	}
 
-	fetchPlants = async (name?:string) => {
-
+	fetchPlants = async (name?: string) => {
 		this.plantIsLoading = true
 		this.error = null
 		try {
-			const response = await plantsApi.getPlants(
-				this.page,
-				this.limit,
-				name
-			)
+			const response = await plantsApi.getPlants(this.page, this.limit, name)
 			runInAction(() => {
 				this.plants = response.data
 				this.page = response.page
@@ -212,7 +207,7 @@ class PlantStore {
 			runInAction(() => {
 				this.plants.push(newPlant)
 				this.plantIsLoading = false
-				this.total +=1
+				this.total += 1
 				this.persistData()
 			})
 			return { success: true, data: newPlant }
@@ -276,12 +271,12 @@ class PlantStore {
 					)
 					updatedActions = updatedActions.slice(0, 5)
 
-					this.currentPlant = { 
-						...this.currentPlant, 
-						actions: updatedActions, 
+					this.currentPlant = {
+						...this.currentPlant,
+						actions: updatedActions,
 						...(action.type === plantActionType.WATER && {
-                lastAction: createdAction
-            }),
+							lastAction: createdAction,
+						}),
 					}
 
 					const index = this.plants.findIndex(p => p.id === action.plantId)
@@ -290,11 +285,11 @@ class PlantStore {
 							...this.plants[index],
 							actions: updatedActions,
 							...(action.type === plantActionType.WATER && {
-                lastAction: createdAction
-            	}),
+								lastAction: createdAction,
+							}),
 						}
-					this.persistData()
-					this.persistCurrentPlant()
+						this.persistData()
+						this.persistCurrentPlant()
 					}
 				}
 			})
@@ -354,7 +349,7 @@ class PlantStore {
 		this.error = null
 	}
 
-	changePage = (page:number) => {
+	changePage = (page: number) => {
 		console.log("changePage page", page)
 		this.page = page
 		console.log("changePage this.plantPage", this.page)

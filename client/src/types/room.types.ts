@@ -4,5 +4,5 @@ export interface Room {
 }
 
 export interface RoomRequest {
-	name: string 
+	name: string
 }

@@ -24,7 +24,7 @@ export default function PlantHeader({
 }: PlantHeaderProps) {
 	return (
 		<div
-			style={{ 
+			style={{
 				display: "flex",
 				justifyContent: "space-between",
 				alignItems: "center",
@@ -39,7 +39,7 @@ export default function PlantHeader({
 					level={2}
 					style={{ margin: 0 }}
 					editable={{
-						icon: <EditOutlined className={styles.editIcon}/>,
+						icon: <EditOutlined className={styles.editIcon} />,
 						tooltip: "Редактировать имя растения",
 						onChange: value => {
 							const nextName = value.trim()
@@ -60,12 +60,17 @@ export default function PlantHeader({
 				cancelText="Отмена"
 				okType="danger"
 				okButtonProps={{
-          styles: { root: { backgroundColor: '#7aad8c', color: '#fff', borderColor: '#7aad8c' }},
-        }}
+					styles: {
+						root: {
+							backgroundColor: "#7aad8c",
+							color: "#fff",
+							borderColor: "#7aad8c",
+						},
+					},
+				}}
 				cancelButtonProps={{
-          styles: { root: {borderColor: '#7aad8c', color: '#070707',}},
-        }}
-				>
+					styles: { root: { borderColor: "#7aad8c", color: "#070707" } },
+				}}>
 				<Button danger icon={<DeleteOutlined />}></Button>
 			</Popconfirm>
 		</div>

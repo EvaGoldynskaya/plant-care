@@ -11,9 +11,8 @@ interface LoginFormProps {
 }
 
 const LoginForm = observer(({ className, onSuccess }: LoginFormProps) => {
-	
-	const {login, isLoading} = authStore
-	
+	const { login, isLoading } = authStore
+
 	const handleFinish = async (values: LoginData) => {
 		const result = await login(values)
 		if (result.success) {

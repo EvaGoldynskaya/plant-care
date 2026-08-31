@@ -4,59 +4,53 @@ import { roomApi } from "../api"
 import axios from "axios"
 import { loadFromStorage } from "../utils/storage"
 
-
 class RoomStore {
+	currentPage = 1
+	limit = 10
+	total = 0
 
-  currentPage = 1
-  limit = 10
-  total = 0
+	rooms: Room[] = []
+	isLoading: boolean = false
+	error: string | null = null
 
-  rooms: Room[] = []
-  isLoading: boolean = false
-  error: string | null = null
-  
-  constructor() {
-    makeAutoObservable(this)
-    this.restoreSession()
-  }
-
-
-  private restoreSession() {
-    this.rooms = loadFromStorage("rooms") || []
-    this.currentPage = loadFromStorage("roomsPage") || 1
-    this.total = loadFromStorage("roomsTotal") || 0
-  }
-
-  private persistData = () => {
-    localStorage.setItem("rooms", JSON.stringify(this.rooms))
-    localStorage.setItem("roomsPage", String(this.currentPage))
-    localStorage.setItem("roomsTotal", String(this.total))
-  }
-
-  private clearStorage = () => {
-    localStorage.removeItem("rooms")
-    localStorage.removeItem("roomsPage")
-    localStorage.removeItem("roomsTotal")
+	constructor() {
+		makeAutoObservable(this)
+		this.restoreSession()
 	}
 
-  fetchRooms = async () => {
-    console.log("fetchRooms")
+	private restoreSession() {
+		this.rooms = loadFromStorage("rooms") || []
+		this.currentPage = loadFromStorage("roomsPage") || 1
+		this.total = loadFromStorage("roomsTotal") || 0
+	}
+
+	private persistData = () => {
+		localStorage.setItem("rooms", JSON.stringify(this.rooms))
+		localStorage.setItem("roomsPage", String(this.currentPage))
+		localStorage.setItem("roomsTotal", String(this.total))
+	}
+
+	private clearStorage = () => {
+		localStorage.removeItem("rooms")
+		localStorage.removeItem("roomsPage")
+		localStorage.removeItem("roomsTotal")
+	}
+
+	fetchRooms = async () => {
+		console.log("fetchRooms")
 		this.isLoading = true
 		this.error = null
 		try {
-			const response = await roomApi.getRooms(
-				this.currentPage,
-				this.limit,
-			)
+			const response = await roomApi.getRooms(this.currentPage, this.limit)
 
-      console.log("fetchRooms response", response)
+			console.log("fetchRooms response", response)
 			runInAction(() => {
 				this.rooms = response
 				this.isLoading = false
 				this.persistData()
 			})
 
-      console.log("fetchRooms this.rooms", this.rooms)
+			console.log("fetchRooms this.rooms", this.rooms)
 
 			return { success: true, data: this.rooms }
 		} catch (error: unknown) {
@@ -72,17 +66,17 @@ class RoomStore {
 		}
 	}
 
-  createRoom = async (room:RoomRequest) => {
+	createRoom = async (room: RoomRequest) => {
 		this.isLoading = true
 		this.error = null
 
 		try {
 			const newRoom = await roomApi.createRoom(room)
-      console.log("createRoom newRoom", newRoom)
+			console.log("createRoom newRoom", newRoom)
 			runInAction(() => {
 				this.rooms.push(newRoom)
 				this.isLoading = false
-				this.total +=1
+				this.total += 1
 				this.persistData()
 			})
 			return { success: true, data: newRoom }
@@ -99,8 +93,7 @@ class RoomStore {
 		}
 	}
 
-
-  updateRoom = async (id: number, room:RoomRequest) => {
+	updateRoom = async (id: number, room: RoomRequest) => {
 		this.isLoading = true
 		this.error = null
 
@@ -128,7 +121,7 @@ class RoomStore {
 		}
 	}
 
-  deleteRoom = async (id: number) => {
+	deleteRoom = async (id: number) => {
 		this.isLoading = true
 		this.error = null
 
@@ -153,12 +146,11 @@ class RoomStore {
 		}
 	}
 
-  getRoomName = (id: number | null | undefined): string => {
-    if (!id) return 'Не указана'
-    const room = this.rooms.find(r => r.id === id)
-    return room?.name || String(id)
-  }
-
+	getRoomName = (id: number | null | undefined): string => {
+		if (!id) return "Не указана"
+		const room = this.rooms.find(r => r.id === id)
+		return room?.name || String(id)
+	}
 }
 
 const roomStore = new RoomStore()

@@ -31,18 +31,18 @@
 	width: 100%;
 	max-width: 600px;
 	border-radius: 16px;
-  display: flex;
+	display: flex;
 	flex-direction: column;
 	background: #fefcf3;
 	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .header {
-  justify-content: center;
+	justify-content: center;
 }
 
 .title {
-	background: linear-gradient(135deg,  #7aad8c 0%, #88cea1 100%);
+	background: linear-gradient(135deg, #7aad8c 0%, #88cea1 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -68,146 +68,146 @@
 	background: linear-gradient(135deg, #7aad8c 0%, #88cea1 100%);
 }
 .customButton:hover {
-	filter: brightness(1.10);
+	filter: brightness(1.1);
 }
 
 .redButton {
 	background: linear-gradient(135deg, #d17963 0%, #b8614c 100%);
 }
 .redButton:hover {
-	filter: brightness(1.10);
+	filter: brightness(1.1);
 }
 
 .searchInput {
 	margin-bottom: 16px;
-  background: #fefcf3;
-  border-color:#7aad8c
+	background: #fefcf3;
+	border-color: #7aad8c;
 }
 
 .plantsListItem {
-  height: 40px;
+	height: 40px;
 	cursor: pointer;
 	transition: background 0.2s ease;
 }
 
 .customTabs {
-  flex-shrink: 0;
+	flex-shrink: 0;
 }
 
 .customTabs :global(.ant-tabs-tab-active .ant-tabs-tab-btn) {
-  color: #7aad8c !important;
+	color: #7aad8c !important;
 }
 
 .customTabs :global(.ant-tabs-tab:hover .ant-tabs-tab-btn) {
-  color: #7aad8c !important;
+	color: #7aad8c !important;
 }
 
 .customTabs :global(.ant-tabs-ink-bar) {
-  background: #7aad8c !important;
+	background: #7aad8c !important;
 }
 
 .editIcon {
-  color:#7aad8c;
-  border-color:#7aad8c;
-  transition: color 0.3s ease;
+	color: #7aad8c;
+	border-color: #7aad8c;
+	transition: color 0.3s ease;
 }
 
 .editIcon:hover {
-  filter: brightness(1.10);
+	filter: brightness(1.1);
 }
 
 .roomCard {
-  border-radius: 8px ;
-  background: #fefcf3;
-  border-color:#7aad8c
+	border-radius: 8px;
+	background: #fefcf3;
+	border-color: #7aad8c;
 }
 
 .actionTable {
-  width: 80%;
-  overflow: hidden;
+	width: 80%;
+	overflow: hidden;
 }
 .actionTable :global(.ant-table-column-sorter) {
-  color: #b0bec5 !important;
+	color: #b0bec5 !important;
 }
 .actionTable :global(.ant-table-column-sorter-up.active),
 .actionTable :global(.ant-table-column-sorter-down.active) {
-  color: #7aad8c !important;
+	color: #7aad8c !important;
 }
 .actionTable :global(.ant-table) {
-  border-radius: 8px;
-  overflow: hidden;
+	border-radius: 8px;
+	overflow: hidden;
 }
 .actionTable :global(.ant-table) {
-  border-radius: 8px;
-  overflow: hidden;
+	border-radius: 8px;
+	overflow: hidden;
 }
 .actionTable :global(.ant-table-thead > tr > th) {
-  background: #f5f0e8 !important;
-  color: #2c3e50 !important;
-  font-weight: 600 !important;
-  border-color: #d4e8d8 !important;
+	background: #f5f0e8 !important;
+	color: #2c3e50 !important;
+	font-weight: 600 !important;
+	border-color: #d4e8d8 !important;
 }
 .actionTable :global(.ant-table-tbody > tr > td) {
-  border-color: #d4e8d8 !important;
-  color: #3d3d3d !important;
+	border-color: #d4e8d8 !important;
+	color: #3d3d3d !important;
 }
 .actionTable :global(.ant-table-tbody > tr:hover > td) {
-  background: rgba(122, 173, 140, 0.06) !important;
+	background: rgba(122, 173, 140, 0.06) !important;
 }
 .actionTable :global(.ant-table) {
-  border-color: #d4e8d8 !important;
+	border-color: #d4e8d8 !important;
 }
 .actionTable :global(.ant-table-thead > tr > th:hover) {
-  background: #ede8e0 !important;
+	background: #ede8e0 !important;
 }
 
 .customInput {
-  border-color: #d4e8d8 !important;
-  transition: all 0.3s ease !important;
+	border-color: #d4e8d8 !important;
+	transition: all 0.3s ease !important;
 }
 .customInput:hover {
-  border-color: #7aad8c !important;
+	border-color: #7aad8c !important;
 }
 .customInput:focus {
-  border-color: #7aad8c !important;
-  box-shadow: 0 0 0 2px rgba(122, 173, 140, 0.2) !important;
+	border-color: #7aad8c !important;
+	box-shadow: 0 0 0 2px rgba(122, 173, 140, 0.2) !important;
 }
 .customInput:active {
-  border-color: #7aad8c !important;
+	border-color: #7aad8c !important;
 }
 
 .customRadioGroup :global(.ant-radio-button-wrapper) {
-  border-color: #d4e8d8 !important;
-  color: #5a6b7c !important;
+	border-color: #d4e8d8 !important;
+	color: #5a6b7c !important;
 }
 
 .customRadioGroup :global(.ant-radio-button-wrapper:hover) {
-  border-color: #7aad8c !important;
-  color: #7aad8c !important;
+	border-color: #7aad8c !important;
+	color: #7aad8c !important;
 }
 
 .customRadioGroup :global(.ant-radio-button-wrapper-checked) {
-  border-color: #7aad8c !important;
-  color: #7aad8c !important;
+	border-color: #7aad8c !important;
+	color: #7aad8c !important;
 }
 
 .customRadioGroup :global(.ant-radio-button-wrapper-checked:hover) {
-  border-color: #88cea1 !important;
-  color: #88cea1 !important;
+	border-color: #88cea1 !important;
+	color: #88cea1 !important;
 }
 
 .customPagination {
-  margin-top: 16px;
+	margin-top: 16px;
 }
 .customPagination :global(.ant-pagination-item-active) {
-  border-color: #7aad8c !important;
+	border-color: #7aad8c !important;
 }
 .customPagination :global(.ant-pagination-item-active a) {
-  color: #88cea1 !important;
+	color: #88cea1 !important;
 }
 .customPagination :global(.ant-pagination-item-active:hover) {
-  border-color: #88cea1 !important;
+	border-color: #88cea1 !important;
 }
 .customPagination :global(.ant-pagination-item-active:hover a) {
-  color: #88cea1 !important;
+	color: #88cea1 !important;
 }

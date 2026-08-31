@@ -1,8 +1,4 @@
-import {
-	Flex,
-	message,
-	Tabs,
-} from "antd"
+import { Flex, message, Tabs } from "antd"
 import { observer } from "mobx-react-lite"
 import { useNavigate } from "react-router-dom"
 import authStore from "../../store/authStore"
@@ -27,17 +23,17 @@ const PlantsPage = observer(() => {
 			}
 		}
 		const loadRooms = async () => {
-      console.log("loadRooms")
-      const result = await roomStore.fetchRooms()
-      console.log("result", result)
-      if (!result.success) {
-        message.error(result.error)
-      }
-    }
-    
+			console.log("loadRooms")
+			const result = await roomStore.fetchRooms()
+			console.log("result", result)
+			if (!result.success) {
+				message.error(result.error)
+			}
+		}
+
 		loadPlants()
 		loadRooms()
-	}, []) 
+	}, [])
 
 	const handleTabChange = (key: string) => {
 		setActiveTab(key)
@@ -50,7 +46,7 @@ const PlantsPage = observer(() => {
 	}
 
 	const handleAddRoom = async (name: string) => {
-		const result = await roomStore.createRoom({"name": name})
+		const result = await roomStore.createRoom({ name: name })
 		console.log("result", result)
 		if (!result.success) {
 			message.error(result.error)
@@ -67,7 +63,9 @@ const PlantsPage = observer(() => {
 		<div className={styles.container}>
 			<Flex className={styles.mainLayout} vertical>
 				<div className={styles.headerWrapper}>
-					<PlantListHeader onLogout={handleLogout} onAddRoom={handleAddRoom}></PlantListHeader>
+					<PlantListHeader
+						onLogout={handleLogout}
+						onAddRoom={handleAddRoom}></PlantListHeader>
 				</div>
 				<Tabs
 					activeKey={activeTab}
@@ -77,18 +75,21 @@ const PlantsPage = observer(() => {
 						{
 							key: "plants",
 							label: "Все растения",
-							children: (<PlantsList key="plants" formatDate={formatDate}></PlantsList>),
+							children: (
+								<PlantsList key="plants" formatDate={formatDate}></PlantsList>
+							),
 						},
 						{
 							key: "rooms",
 							label: "По комнатам",
-							children: (<RoomsList key="rooms" formatDate={formatDate}></RoomsList>),
+							children: (
+								<RoomsList key="rooms" formatDate={formatDate}></RoomsList>
+							),
 						},
 					]}
 				/>
 			</Flex>
 		</div>
-		
 	)
 })
 

@@ -14,34 +14,33 @@
 	overflow: hidden;
 }
 
-
 .customTabs {
-  flex-shrink: 0;
-  margin-bottom: 16px;
+	flex-shrink: 0;
+	margin-bottom: 16px;
 }
 
 /* Активная вкладка - полоска снизу */
 .customTabs :global(.ant-tabs-tab-active .ant-tabs-tab-btn) {
-  color: #7aad8c !important;
+	color: #7aad8c !important;
 }
 
 .customTabs :global(.ant-tabs-ink-bar) {
-  background: #7aad8c !important;
+	background: #7aad8c !important;
 }
 
 /* При наведении на вкладку */
 .customTabs :global(.ant-tabs-tab:hover .ant-tabs-tab-btn) {
-  color: #7aad8c !important;
+	color: #7aad8c !important;
 }
 
 /* Вкладка в активном состоянии */
 .customTabs :global(.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn) {
-  color: #7aad8c !important;
+	color: #7aad8c !important;
 }
 
 /* Полоска при наведении */
 .customTabs :global(.ant-tabs-tab:hover) {
-  color: #7aad8c !important;
+	color: #7aad8c !important;
 }
 
 .card {
@@ -59,7 +58,7 @@
 
 .title {
 	margin-bottom: 8px !important;
-	background: linear-gradient(135deg,  #7aad8c 0%, #88cea1 100%);
+	background: linear-gradient(135deg, #7aad8c 0%, #88cea1 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -75,7 +74,7 @@
 }
 
 .submitButton {
-	content: '';
+	content: "";
 	height: 48px;
 	font-size: 16px;
 	font-weight: 600;
@@ -86,7 +85,7 @@
 }
 
 .submitButton:hover {
-	filter: brightness(1.10);
+	filter: brightness(1.1);
 }
 
 @media (max-width: 576px) {

@@ -11,8 +11,7 @@ interface RegisterFormProps {
 }
 
 const RegisterForm = observer(({ className, onSuccess }: RegisterFormProps) => {
-	
-	const {register, isLoading} = authStore
+	const { register, isLoading } = authStore
 
 	const handleFinish = async (values: RegisterData) => {
 		const { confirmPassword: _confirmPassword, ...registerData } = values

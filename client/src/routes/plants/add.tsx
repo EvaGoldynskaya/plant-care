@@ -1,5 +1,15 @@
 import { observer } from "mobx-react-lite"
-import { Button, Card, Flex, Form, Input, message, Select, Space, Typography } from "antd"
+import {
+	Button,
+	Card,
+	Flex,
+	Form,
+	Input,
+	message,
+	Select,
+	Space,
+	Typography,
+} from "antd"
 import { ArrowLeftOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 import plantStore from "../../store/plantStore"
@@ -23,7 +33,7 @@ const PlantAddPage = observer(() => {
 	const navigate = useNavigate()
 	const [form] = Form.useForm()
 
-	const {rooms} = roomStore
+	const { rooms } = roomStore
 
 	useEffect(() => {
 		return () => {
@@ -39,7 +49,7 @@ const PlantAddPage = observer(() => {
 		})
 	}
 
-	const handleRoomSelect = (value : number) => {
+	const handleRoomSelect = (value: number) => {
 		form.setFieldsValue({
 			roomId: value,
 		})
@@ -69,21 +79,19 @@ const PlantAddPage = observer(() => {
 		}
 	}
 
-
 	const roomOptions = (rooms || []).map(room => ({
-    label: room.name,
-    value: room.id,
-  }))
+		label: room.name,
+		value: room.id,
+	}))
 
-	return ( 
+	return (
 		<div className={styles.container}>
 			<Card className={styles.card}>
 				<Space orientation="vertical" size="large" style={{ width: "100%" }}>
 					<Button
-							type="text"
-							icon={<ArrowLeftOutlined />}
-							onClick={() => navigate("/plants")}>
-						</Button>
+						type="text"
+						icon={<ArrowLeftOutlined />}
+						onClick={() => navigate("/plants")}></Button>
 					<Flex align="center" className={styles.header}>
 						<Title level={2} className={styles.title}>
 							Добавить растение
@@ -95,7 +103,10 @@ const PlantAddPage = observer(() => {
 							name="name"
 							label="Имя растения"
 							rules={[{ required: true, message: "Дайте растению имя" }]}>
-							<Input placeholder="Имя растения" className={styles.customInput}/>
+							<Input
+								placeholder="Имя растения"
+								className={styles.customInput}
+							/>
 						</Form.Item>
 
 						<Form.Item
@@ -113,7 +124,15 @@ const PlantAddPage = observer(() => {
 						</Form.Item>
 
 						<Form.Item name="roomId" label="Комната">
-							<Select placeholder="Комната" className={styles.customInput} options={roomOptions} onSelect={handleRoomSelect} allowClear onClear={handleRoomClear} /> </Form.Item>
+							<Select
+								placeholder="Комната"
+								className={styles.customInput}
+								options={roomOptions}
+								onSelect={handleRoomSelect}
+								allowClear
+								onClear={handleRoomClear}
+							/>{" "}
+						</Form.Item>
 						<Form.Item>
 							<Button
 								type="primary"

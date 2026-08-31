@@ -108,7 +108,7 @@ class AuthStore {
 	clearError = () => {
 		this.error = null
 	}
-} 
+}
 
 const authStore = new AuthStore()
 export default authStore

@@ -57,7 +57,7 @@ export const getPlantsByUser = async (
 	if (name) {
 		where.OR = [
 			{ name: { contains: name, mode: "insensitive" } },
-			{ commonName: { contains: name, mode: "insensitive" } }
+			{ commonName: { contains: name, mode: "insensitive" } },
 		]
 	}
 
