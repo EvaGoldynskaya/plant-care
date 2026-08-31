@@ -3,14 +3,52 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: linear-gradient(135deg, #76c292 0%, #429e65 100%);
+	background: linear-gradient(135deg, #7aad8c 0%, #88cea1 100%);
 	padding: 20px;
+	margin: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+}
+
+
+.customTabs {
+  flex-shrink: 0;
+  margin-bottom: 16px;
+}
+
+/* Активная вкладка - полоска снизу */
+.customTabs :global(.ant-tabs-tab-active .ant-tabs-tab-btn) {
+  color: #7aad8c !important;
+}
+
+.customTabs :global(.ant-tabs-ink-bar) {
+  background: #7aad8c !important;
+}
+
+/* При наведении на вкладку */
+.customTabs :global(.ant-tabs-tab:hover .ant-tabs-tab-btn) {
+  color: #7aad8c !important;
+}
+
+/* Вкладка в активном состоянии */
+.customTabs :global(.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn) {
+  color: #7aad8c !important;
+}
+
+/* Полоска при наведении */
+.customTabs :global(.ant-tabs-tab:hover) {
+  color: #7aad8c !important;
 }
 
 .card {
 	width: 100%;
 	max-width: 440px;
 	border-radius: 16px;
+	background: #fefcf3;
 	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
@@ -21,7 +59,7 @@
 
 .title {
 	margin-bottom: 8px !important;
-	background: linear-gradient(135deg,  #76c292 0%, #429e65 100%);
+	background: linear-gradient(135deg,  #7aad8c 0%, #88cea1 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -37,64 +75,20 @@
 }
 
 .submitButton {
+	content: '';
 	height: 48px;
 	font-size: 16px;
 	font-weight: 600;
-	background: linear-gradient(135deg, #76c292 0%, #429e65 100%);
-	border: none;
+	background: linear-gradient(135deg, #7aad8c 0%, #88cea1 100%);
+	inset: -1px;
+	opacity: 1;
 	transition: all 0.3s ease;
 }
 
 .submitButton:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 8px 25px rgba(113, 179, 127, 0.4);
+	filter: brightness(1.10);
 }
 
-.submitButton:active {
-	transform: translateY(0);
-}
-
-.divider {
-	display: flex;
-	align-items: center;
-	margin: 16px 0;
-}
-
-.divider::before,
-.divider::after {
-	content: "";
-	flex: 1;
-	height: 1px;
-	background: #e8e8e8;
-}
-
-.divider span {
-	padding: 0 16px;
-	color: #999;
-	font-size: 14px;
-}
-
-.socialButton {
-	height: 48px;
-	font-size: 16px;
-	border-color: #d9d9d9;
-	transition: all 0.3s ease;
-}
-
-.socialButton:hover {
-	border-color: #76c292;
-	color: #429e65;
-}
-
-.errorContainer {
-	margin-top: 16px;
-	padding: 12px;
-	background: #fff2f0;
-	border-radius: 8px;
-	text-align: center;
-}
-
-/* Адаптивность */
 @media (max-width: 576px) {
 	.card {
 		max-width: 100%;

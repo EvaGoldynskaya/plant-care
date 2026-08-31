@@ -4,6 +4,7 @@ import {
 	type PlantActionRequest,
 } from "../../../types/plant.types"
 import TextArea from "antd/es/input/TextArea"
+import styles from "../PlantPage.module.css"
 
 interface PlantActionButtonsProps {
 	plantId: number
@@ -26,7 +27,7 @@ export default function PlantActionButtons({
 			<Space align="end" size="middle">
 				<Space orientation="vertical" size="small">
 					<Form.Item name="note" noStyle>
-						<TextArea placeholder="Заметка" rows={4} style={{ width: 200 }} />
+						<TextArea className={styles.customInput} placeholder="Заметка" rows={4} style={{ width: 200 }} />
 					</Form.Item>
 
 					<Form.Item
@@ -36,6 +37,7 @@ export default function PlantActionButtons({
 						<Radio.Group
 							optionType="button"
 							vertical
+							className={styles.customRadioGroup}
 							options={Object.entries(plantActionType).map(([_key, value]) => ({
 								label: value,
 								value: value,
@@ -43,7 +45,7 @@ export default function PlantActionButtons({
 					</Form.Item>
 
 					<Form.Item noStyle>
-						<Button type="primary" htmlType="submit" block>
+						<Button type="primary" htmlType="submit" className={styles.customButton} block>
 							Добавить
 						</Button>
 					</Form.Item>

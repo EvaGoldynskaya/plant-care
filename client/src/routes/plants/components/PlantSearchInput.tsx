@@ -4,6 +4,7 @@ import { Select, Spin, Empty } from "antd"
 import { useDebounce } from "../../../hooks/useDebounce"
 import plantbookStore from "../../../store/plantbookStore"
 import type { PlantbookSearchPlant } from "../../../types/plantbook.types"
+import styles from "../PlantPage.module.css"
 
 interface PlantSearchInputProps {
 	onSelect: (plant: PlantbookSearchPlant) => void
@@ -67,7 +68,7 @@ const PlantSearchInput: React.FC<PlantSearchInputProps> = observer(
 				onChange={handleSelect}
 				options={options}
 				loading={plantbookStore.isSearching}
-				style={{ width: "100%" }}
+				className={styles.customInput}
 				showSearch={{
 					onSearch: handleSearch,
 					filterOption: false,

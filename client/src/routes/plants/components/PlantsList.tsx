@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { useSearch } from "../../../hooks/useSearch";
 import roomStore from "../../../store/roomStore";
+import styles from "../PlantPage.module.css"
 
 interface PlantsListProps {
   formatDate: (dateString: string) => string
@@ -55,7 +56,7 @@ const PlantsList = observer(({ formatDate }: PlantsListProps) => {
         placeholder="Поиск растения..."
         value={searchTerm}
         onChange={handleSearch}
-        variant="underlined"
+        className={styles.customInput}
         allowClear
       />
       <Listy<Plant>
@@ -63,7 +64,7 @@ const PlantsList = observer(({ formatDate }: PlantsListProps) => {
         rowKey="id"
         height={1000}
         itemRender={item => (
-          <div onClick={() => handlePlantClick(item.id)}>
+          <div onClick={() => handlePlantClick(item.id)} className={styles.plantsListItem}>
             <Flex gap="middle" align="flex-start">
               <Flex vertical flex="auto" style={{ minWidth: 0 }}>
                 <Flex justify="space-between" gap="small">
@@ -88,6 +89,7 @@ const PlantsList = observer(({ formatDate }: PlantsListProps) => {
         current={plantPage}
         pageSize={plantLimit}
         total={totalPlants}
+        className={styles.customPagination}
         onChange={handlePageChange}
       />
     </Flex>

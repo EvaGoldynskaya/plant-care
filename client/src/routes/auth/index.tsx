@@ -42,6 +42,7 @@ const AuthPage = observer(() => {
 				<Tabs
 					activeKey={activeTab}
 					onChange={handleTabChange}
+					className={styles.customTabs}
 					centered
 					destroyOnHidden
 					items={[

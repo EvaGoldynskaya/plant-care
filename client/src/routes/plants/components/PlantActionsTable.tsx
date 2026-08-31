@@ -1,6 +1,7 @@
 import { Flex, Table, Tag } from "antd"
 import dayjs from "dayjs"
 import type { PlantAction } from "../../../types/plant.types"
+import styles from "../PlantPage.module.css"
 
 interface PlantActionsTableProps {
 	plantActions: PlantAction[]
@@ -52,10 +53,11 @@ export default function PlantActionsTable({
 }: PlantActionsTableProps) {
 	return (
 		<Table
+			bordered
 			dataSource={plantActions}
 			rowKey="id"
 			columns={columns}
-			style={{ width: "80%" }}
+			className={styles.actionTable}
 			pagination={false}
 		/>
 	)

@@ -1,12 +1,12 @@
-import { Flex, Listy, Typography, Spin, Empty, Collapse } from "antd";
+import { Flex, Listy, Typography, Spin, Empty, Card } from "antd";
 import plantStore from "../../../store/plantStore"
 import type { Plant } from "../../../types/plant.types";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import roomStore from "../../../store/roomStore";
 import { EditOutlined } from "@ant-design/icons"
+import styles from "../PlantPage.module.css"
 
-const { Panel } = Collapse
 
 interface RoomListProps {
   formatDate: (dateString: string) => string
@@ -44,19 +44,21 @@ const RoomsList = observer(({ formatDate }: RoomListProps) => {
   }
 
   return (
-     <Collapse accordion>
+     <Flex vertical gap="large" style={{ maxWidth: 1300, margin: "0 auto" }}>
       {rooms.map(room => {
         const filteredPlants = getPlantsByRoom(room.id)
 
         return (
-          <Panel
+          <Card
             key={room.id}
-            header={
+            type="inner"
+            className={styles.roomCard}
+            title={
               <Flex justify="space-between" align="center">
                 <Typography.Text
                   style={{ margin: 0 }}
                   editable={{
-                    icon: <EditOutlined />,
+                    icon: <EditOutlined className={styles.editIcon}/>,
                     tooltip: "Редактировать название комнаты",
                     onChange: value => {
                       const nextName = value.trim()
@@ -70,14 +72,22 @@ const RoomsList = observer(({ formatDate }: RoomListProps) => {
                 <Typography.Text type="secondary">{filteredPlants.length} растений </Typography.Text>
               </Flex>
             }
+            styles={{
+              header: {
+                padding: '12px 16px',
+              },
+              body: {
+                padding: 0,
+              }
+            }}
           >
           <Flex vertical gap="middle">              
             <Listy<Plant>
               items={filteredPlants}
               rowKey="id"
-              height={1000}
+              height={300}
               itemRender={item => (
-                <div onClick={() => handlePlantClick(item.id)}>
+                <div onClick={() => handlePlantClick(item.id)} className={styles.plantsListItem}>
                   <Flex gap="middle" align="flex-start">
                     <Flex vertical flex="auto" style={{ minWidth: 0 }}>
                       <Flex justify="space-between" gap="small">
@@ -96,10 +106,10 @@ const RoomsList = observer(({ formatDate }: RoomListProps) => {
               )}
             />
           </Flex>
-        </Panel>
+        </Card>
         )
       })}
-    </Collapse>
+    </Flex>
   )
 })
 

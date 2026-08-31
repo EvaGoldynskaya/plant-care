@@ -1,7 +1,7 @@
 import {
-	Menu,
+	Flex,
 	message,
-	type MenuProps,
+	Tabs,
 } from "antd"
 import { observer } from "mobx-react-lite"
 import { useNavigate } from "react-router-dom"
@@ -11,13 +11,13 @@ import dayjs from "dayjs"
 import PlantsList from "./components/PlantsList"
 import { useEffect, useState } from "react"
 import RoomsList from "./components/RoomsList"
-import { Content } from "antd/es/layout/layout"
 import PlantListHeader from "./components/PlantListHeader"
 import roomStore from "../../store/roomStore"
+import styles from "./PlantPage.module.css"
 
 const PlantsPage = observer(() => {
 	const navigate = useNavigate()
-	const [selectedKey, setSelectedKey] = useState('1')
+	const [activeTab, setActiveTab] = useState<string>("plants")
 
 	useEffect(() => {
 		const loadPlants = async () => {
@@ -39,6 +39,10 @@ const PlantsPage = observer(() => {
 		loadRooms()
 	}, []) 
 
+	const handleTabChange = (key: string) => {
+		setActiveTab(key)
+	}
+
 	const handleLogout = () => {
 		plantStore.resetPlants()
 		authStore.logout()
@@ -59,45 +63,32 @@ const PlantsPage = observer(() => {
 		return dayjs(dateString).format("DD-MM-YYYY HH:mm")
 	}
 
-	const handleMenuClick: MenuProps['onClick'] = (e) => {
-    setSelectedKey(e.key)
-  }
-
-  const renderContent = () => {
-    switch (selectedKey) {
-      case '1':
-        return <PlantsList key="plants" formatDate={formatDate}></PlantsList>
-      case '2':
-        return <RoomsList key="rooms" formatDate={formatDate}></RoomsList>
-      default:
-        return <PlantsList key="plants" formatDate={formatDate}></PlantsList>
-    }
-  }
-
-	const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: 'Все растения',
-    },
-    {
-      key: '2',
-      label: 'По комнатам',
-    },
-  ]
-
 	return (
-		<div style={{ padding: 24, maxWidth: 1300, margin: "0 auto" }}>
-			<PlantListHeader onLogout={handleLogout} onAddRoom={handleAddRoom}></PlantListHeader>
-			<Menu
-        mode="horizontal"
-        items={items}
-        selectedKeys={[selectedKey]}
-        onClick={handleMenuClick}
-      />
-      <Content style={{ padding: 24 }}>
-        {renderContent()}
-      </Content>
+		<div className={styles.container}>
+			<Flex className={styles.mainLayout} vertical>
+				<div className={styles.headerWrapper}>
+					<PlantListHeader onLogout={handleLogout} onAddRoom={handleAddRoom}></PlantListHeader>
+				</div>
+				<Tabs
+					activeKey={activeTab}
+					onChange={handleTabChange}
+					className={styles.customTabs}
+					items={[
+						{
+							key: "plants",
+							label: "Все растения",
+							children: (<PlantsList key="plants" formatDate={formatDate}></PlantsList>),
+						},
+						{
+							key: "rooms",
+							label: "По комнатам",
+							children: (<RoomsList key="rooms" formatDate={formatDate}></RoomsList>),
+						},
+					]}
+				/>
+			</Flex>
 		</div>
+		
 	)
 })
 

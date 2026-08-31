@@ -154,7 +154,7 @@ class RoomStore {
 	}
 
   getRoomName = (id: number | null | undefined): string => {
-    if (!id) return 'Неизвестная комната'
+    if (!id) return 'Не указана'
     const room = this.rooms.find(r => r.id === id)
     return room?.name || String(id)
   }

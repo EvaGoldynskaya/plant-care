@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import { Button, Card, Form, Input, message, Select, Space, Typography } from "antd"
+import { Button, Card, Flex, Form, Input, message, Select, Space, Typography } from "antd"
 import { ArrowLeftOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 import plantStore from "../../store/plantStore"
@@ -8,6 +8,7 @@ import { useEffect } from "react"
 import type { PlantbookSearchPlant } from "../../types/plantbook.types"
 import plantbookStore from "../../store/plantbookStore"
 import roomStore from "../../store/roomStore"
+import styles from "./PlantPage.module.css"
 
 const { Title } = Typography
 
@@ -74,28 +75,28 @@ const PlantAddPage = observer(() => {
     value: room.id,
   }))
 
-	return (
-		<div style={{ padding: 24, maxWidth: 600, margin: "0 auto" }}>
-			<Space orientation="vertical" size="large" style={{ width: "100%" }}>
-				<div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-					<Button
-						type="text"
-						icon={<ArrowLeftOutlined />}
-						onClick={() => navigate("/plants")}>
-						Назад
-					</Button>
-					<Title level={2} style={{ margin: 0 }}>
-						Добавить растение
-					</Title>
-				</div>
+	return ( 
+		<div className={styles.container}>
+			<Card className={styles.card}>
+				<Space orientation="vertical" size="large" style={{ width: "100%" }}>
+					<Flex align="center" gap={16}>
+						<Button
+							type="text"
+							icon={<ArrowLeftOutlined />}
+							onClick={() => navigate("/plants")}>
+							Назад
+						</Button>
+						<Title level={2} className={styles.title}>
+							Добавить растение
+						</Title>
+					</Flex>
 
-				<Card>
 					<Form form={form} layout="vertical" onFinish={handleSubmit}>
 						<Form.Item
 							name="name"
 							label="Имя растения"
 							rules={[{ required: true, message: "Дайте растению имя" }]}>
-							<Input placeholder="Имя растения" />
+							<Input placeholder="Имя растения" className={styles.customInput}/>
 						</Form.Item>
 
 						<Form.Item
@@ -113,11 +114,12 @@ const PlantAddPage = observer(() => {
 						</Form.Item>
 
 						<Form.Item name="roomId" label="Комната">
-							<Select placeholder="Комната" options={roomOptions} onSelect={handleRoomSelect} allowClear onClear={handleRoomClear} /> </Form.Item>
+							<Select placeholder="Комната" className={styles.customInput} options={roomOptions} onSelect={handleRoomSelect} allowClear onClear={handleRoomClear} /> </Form.Item>
 						<Form.Item>
 							<Button
 								type="primary"
 								htmlType="submit"
+								className={styles.customButton}
 								loading={plantStore.plantIsLoading}
 								block
 								size="large">
@@ -125,8 +127,8 @@ const PlantAddPage = observer(() => {
 							</Button>
 						</Form.Item>
 					</Form>
-				</Card>
-			</Space>
+				</Space>
+			</Card>
 		</div>
 	)
 })
