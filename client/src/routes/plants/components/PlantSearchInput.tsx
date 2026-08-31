@@ -43,26 +43,6 @@ const PlantSearchInput: React.FC<PlantSearchInputProps> = observer(
 			onClear()
 		}, [onClear])
 
-		// // Мемоизация опций
-		// const options = useMemo<SelectProps["options"]>(() => {
-		// 	return plantbookStore.searchResults.map(plant => ({
-		// 		label: (
-		// 			<div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-		// 				<span>{plant.display_pid}</span>
-		// 			</div>
-		// 		),
-		// 		value: plant.pid,
-		// 	}))
-		// }, [plantbookStore.searchResults])
-
-		// // Определяем контент при отсутствии результатов
-		// const notFoundContent = useMemo(() => {
-		// 	if (plantbookStore.isSearching) {
-		// 		return <Spin size="small" />
-		// 	}
-		// 	return <Empty description="Ничего не найдено" />
-		// }, [plantbookStore.isSearching, searchQuery])
-
 		const options = plantbookStore.searchResults.map(plant => ({
 			label: (
 				<div style={{ display: "flex", alignItems: "center", gap: 8 }}>

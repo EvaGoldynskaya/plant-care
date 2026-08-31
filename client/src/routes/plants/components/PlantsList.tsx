@@ -4,17 +4,18 @@ import type { Plant } from "../../../types/plant.types";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { useSearch } from "../../../hooks/useSearch";
+import roomStore from "../../../store/roomStore";
 
-interface AllPlantsListProps {
+interface PlantsListProps {
   formatDate: (dateString: string) => string
 }
 
-const AllPlantsList = observer(({ formatDate }: AllPlantsListProps) => {
+const PlantsList = observer(({ formatDate }: PlantsListProps) => {
   const navigate = useNavigate()
 
-  const { plants, plantPage, plantLimit, totalPlants, changePage, plantIsLoading } = plantStore
+  const { plants, page: plantPage, limit: plantLimit, total: totalPlants, changePage, plantIsLoading } = plantStore
+  const { getRoomName } = roomStore
   const { searchTerm, setSearchTerm, filteredItems } = useSearch(plants,['name', 'commonName'])
-  console.log("totalPlants", totalPlants)
 
   const handlePlantClick = (id: number) => {
     navigate(`/plants/${id}`)
@@ -44,7 +45,7 @@ const AllPlantsList = observer(({ formatDate }: AllPlantsListProps) => {
     )
   }
 
-  if (plants.length === 0) {
+  if (plants == undefined || plants.length === 0) {
     return <Empty description="У вас пока нет растений" />
   }
 
@@ -66,12 +67,12 @@ const AllPlantsList = observer(({ formatDate }: AllPlantsListProps) => {
             <Flex gap="middle" align="flex-start">
               <Flex vertical flex="auto" style={{ minWidth: 0 }}>
                 <Flex justify="space-between" gap="small">
-                  <Typography.Text strong>{item.name}</Typography.Text>
+                  <Typography.Text strong>{item.name} - {item.commonName}</Typography.Text>
+                  {item.roomId && (
+                    <Typography.Text type="secondary">Находится в {getRoomName(item.roomId)}</Typography.Text>
+                  )}
                 </Flex>
                 <Flex justify="left" gap="small">
-                  <Typography.Text type="secondary">
-                    {item.commonName}
-                  </Typography.Text>
                   {item.lastAction?.createdAt && (
                     <Typography.Text type="secondary">
                       Последний полив: {formatDate(item.lastAction.createdAt)}
@@ -93,4 +94,4 @@ const AllPlantsList = observer(({ formatDate }: AllPlantsListProps) => {
   )
 })
 
-export default AllPlantsList
+export default PlantsList
