@@ -32,7 +32,7 @@ export const addRoom = async (req: Request, res: Response) => {
 			return res.status(401).json({ message: "Unauthorized" })
 		}
 
-		const room = await createRoom(userId, req.body)
+		const room = await createRoom(userId, req.body.name)
 
 		return res.status(201).json({ message: "Room created", room })
 	} catch (error) {
@@ -51,7 +51,7 @@ export const updateRoom = async (req: Request, res: Response) => {
 			return res.status(401).json({ message: "Unauthorized" })
 		}
 
-		const room = await updateRoomById(userId, Number(id), req.body)
+		const room = await updateRoomById(userId, Number(id), req.body.name)
 
 		return res.status(200).json({ message: "Room updated", room })
 	} catch (error) {

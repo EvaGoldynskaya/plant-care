@@ -11,7 +11,7 @@ const router = Router()
 
 router.use(authenticate)
 router.get("/rooms", getRooms)
-router.post("/addRoom", addRoom)
+router.post("/createRoom", addRoom)
 router.put("/updateRoom/:id", updateRoom)
 router.delete("/deleteRoom/:id", deleteRoom)
 

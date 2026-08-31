@@ -1,10 +1,5 @@
 import prisma from "../lib/prisma"
 
-interface RoomData {
-	name: string
-	userId: number
-}
-
 //Получение всех комнат пользователя
 export const getRoomsByUser = async (userId: number) => {
 	return prisma.room.findMany({
@@ -14,8 +9,8 @@ export const getRoomsByUser = async (userId: number) => {
 }
 
 //Добавление новой комнаты
-export const createRoom = async (userId: number, data: RoomData) => {
-	const name = data.name?.trim()
+export const createRoom = async (userId: number, name: string) => {
+	const trimName = name.trim()
 
 	if (!name) {
 		throw new Error("Room name is required")
@@ -23,7 +18,7 @@ export const createRoom = async (userId: number, data: RoomData) => {
 
 	return prisma.room.create({
 		data: {
-			name,
+			name: trimName,
 			userId,
 		},
 	})
@@ -33,7 +28,7 @@ export const createRoom = async (userId: number, data: RoomData) => {
 export const updateRoomById = async (
 	userId: number,
 	roomId: number,
-	data: RoomData
+	name: string
 ) => {
 	const room = await prisma.room.findFirst({
 		where: {
@@ -49,7 +44,7 @@ export const updateRoomById = async (
 	return prisma.room.update({
 		where: { id: roomId },
 		data: {
-			name: data.name?.trim() || room.name,
+			name: name.trim() || room.name,
 		},
 	})
 }

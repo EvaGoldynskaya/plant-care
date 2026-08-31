@@ -11,10 +11,21 @@ import type {
 	PlantActionRequest,
 	PlantRequest,
 } from "../types/plant.types"
+import type { Room, RoomRequest } from "../types/room.types"
 
 interface PlantMutationResponse {
 	message: string
 	plant: Plant
+}
+
+interface RoomMutationResponse {
+	message: string
+	room: Room
+}
+
+interface RoomsResponse {
+	message: string
+	rooms: Room[]
 }
 
 interface PlantActionResponse {
@@ -45,7 +56,6 @@ api.interceptors.request.use(config => {
 	if (token) {
 		config.headers.Authorization = `Bearer ${token}`
 	}
-	console.log("Request interceptor - config:", config)
 	return config
 })
 
@@ -67,6 +77,31 @@ export const authApi = {
 	},
 }
 
+export const roomApi = {
+	getRooms: async (
+		page?: number,
+		limit?: number
+	): Promise<Room[]> => {
+		const res = await api.get<RoomsResponse>("/rooms", {
+			params: { page, limit },
+		})
+		return res.data.rooms
+	},
+	createRoom: async (room: RoomRequest): Promise<Room> => {
+		const res = await api.post<RoomMutationResponse>("/createRoom", room)
+		console.log("createRoom res ", res)
+		return res.data.room
+	},
+	updateRoom: async (id: number, room: RoomRequest): Promise<Room> => {
+		const res = await api.post<RoomMutationResponse>(`/updateRoom/${id}`, room)
+		return res.data.room
+	},
+	deleteRoom: async (id: number,): Promise<Room> => {
+		const res = await api.post<RoomMutationResponse>(`/deleteRoom/${id}`)
+		return res.data.room
+	},
+}
+
 export const plantsApi = {
 	getPlants: async (
 		page?: number,
@@ -76,7 +111,6 @@ export const plantsApi = {
 		const res = await api.get<PaginatedResponse<Plant>>("/plants", {
 			params: { page, limit, name },
 		})
-		console.log("plantsApi.getPlants response:", res)
 		return res.data
 	},
 	getPlantById: async (id: number): Promise<Plant> => {
@@ -106,7 +140,6 @@ export const plantsApi = {
 		const res = await api.get<PaginatedResponse<PlantAction>>("/plantActions", {
 			params: { plantId, page, limit, type },
 		})
-		console.log("plantsApi.getPlants response:", res)
 		return res.data
 	},
 	createPlantAction: async (
@@ -116,7 +149,6 @@ export const plantsApi = {
 			`/createPlantAction`,
 			action
 		)
-		console.log("createPlantAction res", res.data)
 		return res.data.plantAction
 	},
 }
