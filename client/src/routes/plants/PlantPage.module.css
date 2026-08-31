@@ -38,8 +38,7 @@
 }
 
 .header {
-	text-align: center;
-	margin-bottom: 24px;
+  justify-content: center;
 }
 
 .title {

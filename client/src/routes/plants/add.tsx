@@ -79,13 +79,12 @@ const PlantAddPage = observer(() => {
 		<div className={styles.container}>
 			<Card className={styles.card}>
 				<Space orientation="vertical" size="large" style={{ width: "100%" }}>
-					<Flex align="center" gap={16}>
-						<Button
+					<Button
 							type="text"
 							icon={<ArrowLeftOutlined />}
 							onClick={() => navigate("/plants")}>
-							Назад
 						</Button>
+					<Flex align="center" className={styles.header}>
 						<Title level={2} className={styles.title}>
 							Добавить растение
 						</Title>

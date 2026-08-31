@@ -107,14 +107,6 @@ const PlantDetailsPage = observer(() => {
 		}
 	}
 
-	if (isLoading || isPlantbookLoading) {
-		return (
-			<div style={{ padding: 24, maxWidth: 960, margin: "0 auto" }}>
-				<Skeleton active avatar paragraph={{ rows: 8 }} />
-			</div>
-		)
-	}
-
 	if (!plant) {
 		return (
 			<div style={{ padding: 24, maxWidth: 960, margin: "0 auto" }}>
@@ -132,6 +124,11 @@ const PlantDetailsPage = observer(() => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.mainLayout}>
+				{(isLoading || isPlantbookLoading) ? (
+					<div >
+						<Skeleton active avatar paragraph={{ rows: 8 }} />
+					</div>
+				):(
 				<Space orientation="vertical" size="large" style={{ width: '100%', height: '100%' }}>
 					<PlantHeader
 						plant={plant}
@@ -195,6 +192,7 @@ const PlantDetailsPage = observer(() => {
 					</div>
 					</Card>
 				</Space>
+				)}
 			</div>
 		</div>
 	)
