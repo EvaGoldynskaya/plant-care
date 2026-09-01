@@ -36,6 +36,14 @@ class RoomStore {
 		localStorage.removeItem("roomsTotal")
 	}
 
+	resetRooms = () => {
+		this.rooms = []
+		this.currentPage = 1
+		this.total = 0
+		this.error = null
+		this.clearStorage()
+	}
+
 	fetchRooms = async () => {
 		console.log("fetchRooms")
 		this.isLoading = true
