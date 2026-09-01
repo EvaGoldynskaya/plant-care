@@ -200,16 +200,18 @@ export const getPlantActionsByPlant = async (
 //Добавление действия с растением (полив, удобрение)
 export const createNewPlantAction = async (params: PlantActionData) => {
 	const { plantId, type, note } = params
-	console.log("params", params)
-	if (!type || !plantId) {
+	const normalizedType = type?.trim()
+	const normalizedNote = note?.trim()
+
+	if (!normalizedType || !plantId) {
 		throw new Error("Plant action type&plantId is required")
 	}
 
 	return prisma.plantAction.create({
 		data: {
-			type,
+			type: normalizedType,
 			plantId,
-			note: note || null,
+			note: normalizedNote || null,
 		},
 	})
 }

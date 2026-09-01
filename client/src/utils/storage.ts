@@ -1,11 +1,14 @@
 export const loadFromStorage = <T>(key: string): T | null => {
+	const storage = globalThis.localStorage
+	if (!storage) return null
+
 	try {
-		const saved = localStorage.getItem(key)
+		const saved = storage.getItem(key)
 		if (!saved) return null
 
 		return JSON.parse(saved)
 	} catch {
-		localStorage.removeItem(key)
+		storage.removeItem(key)
 		return null
 	}
 }

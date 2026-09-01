@@ -1,12 +1,4 @@
-import {
-	message,
-	Skeleton,
-	Card,
-	Empty,
-	Button,
-	Space,
-	Descriptions,
-} from "antd"
+import { message, Skeleton, Card, Empty, Space, Descriptions } from "antd"
 import { observer } from "mobx-react-lite"
 import { useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
@@ -107,26 +99,16 @@ const PlantDetailsPage = observer(() => {
 		}
 	}
 
-	if (!plant) {
-		return (
-			<div style={{ padding: 24, maxWidth: 960, margin: "0 auto" }}>
-				<Card>
-					<Empty description="Растение не найдено">
-						<Button type="primary" onClick={() => navigate("/plants")}>
-							Вернуться к списку
-						</Button>
-					</Empty>
-				</Card>
-			</div>
-		)
-	}
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.mainLayout}>
 				{isLoading || isPlantbookLoading ? (
 					<div>
 						<Skeleton active avatar paragraph={{ rows: 8 }} />
+					</div>
+				) : !plant ? (
+					<div>
+						<Empty description="Растение не найдено" />
 					</div>
 				) : (
 					<Space
