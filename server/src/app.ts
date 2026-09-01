@@ -18,11 +18,18 @@ const allowedOrigins = [
 	...(vercelUrl ? [vercelUrl] : []),
 ]
 
+const isVercelPreviewOrigin = (origin: string) =>
+	origin.endsWith(".vercel.app")
+
 app.use(helmet())
 app.use(
 	cors({
 		origin: (origin, callback) => {
-			if (!origin || allowedOrigins.includes(origin)) {
+			if (
+				!origin ||
+				allowedOrigins.includes(origin) ||
+				isVercelPreviewOrigin(origin)
+			) {
 				callback(null, true)
 				return
 			}

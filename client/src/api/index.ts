@@ -40,9 +40,11 @@ interface PaginatedResponse<T> {
 	totalPages: number
 }
 
-const API_URL =
+const baseApiUrl =
 	(import.meta.env.VITE_API_URL as string | undefined) ||
 	"https://plant-care-server.vercel.app"
+
+const API_URL = `${baseApiUrl.replace(/\/$/, "")}/api`
 
 const api = axios.create({
 	baseURL: API_URL,
