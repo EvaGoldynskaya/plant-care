@@ -1,12 +1,4 @@
-import {
-	message,
-	Skeleton,
-	Card,
-	Empty,
-	Button,
-	Space,
-	Descriptions,
-} from "antd"
+import { message, Skeleton, Card, Empty, Space, Descriptions } from "antd"
 import { observer } from "mobx-react-lite"
 import { useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
@@ -119,77 +111,77 @@ const PlantDetailsPage = observer(() => {
 						<Empty description="Растение не найдено" />
 					</div>
 				) : (
-				<Space
-					orientation="vertical"
-					size="large"
-					style={{ width: "100%", height: "100%" }}>
-					<PlantHeader
-						plant={plant}
-						onBack={() => navigate("/plants")}
-						onNameUpdate={handleNameUpdate}
-						onDelete={handleDelete}
-					/>
+					<Space
+						orientation="vertical"
+						size="large"
+						style={{ width: "100%", height: "100%" }}>
+						<PlantHeader
+							plant={plant}
+							onBack={() => navigate("/plants")}
+							onNameUpdate={handleNameUpdate}
+							onDelete={handleDelete}
+						/>
 
-					<Card style={{ height: 70 }} className={styles.roomCard}>
-						<Descriptions column={4}>
-							<Descriptions.Item label="Вид" span={1}>
-								{plant.commonName}
-							</Descriptions.Item>
-							{plantbook != null && (
-								<>
-									<Descriptions.Item label="Семейство" span={1}>
-										{plantbook.category}
-									</Descriptions.Item>
-									<Descriptions.Item label="Происхождение" span={1}>
-										{plantbook.origin}
-									</Descriptions.Item>
-								</>
-							)}
-							<Descriptions.Item
-								label="Комната"
-								span={2}
-								style={{
-									display: "flex",
-									justifyContent: "space-between",
-									alignItems: "center",
-									minWidth: 210,
-								}}>
-								<EditableRoomSelect
-									roomName={getRoomName(plant.roomId)}
-									currentRoomId={plant.roomId}
-									onRoomUpdate={handleRoomUpdate}></EditableRoomSelect>
-							</Descriptions.Item>
-						</Descriptions>
-					</Card>
-					{plantbook != null && (
-						<Card className={styles.roomCard}>
-							<Descriptions column={3}>
-								<Descriptions.Item label="💡">
-									{plantbook.care?.light}{" "}
+						<Card style={{ height: 70 }} className={styles.roomCard}>
+							<Descriptions column={4}>
+								<Descriptions.Item label="Вид" span={1}>
+									{plant.commonName}
 								</Descriptions.Item>
-								<Descriptions.Item label="💧">
-									{plantbook.care?.humid}
-								</Descriptions.Item>
-								<Descriptions.Item label="🌱">
-									{plantbook.care?.soil}
+								{plantbook != null && (
+									<>
+										<Descriptions.Item label="Семейство" span={1}>
+											{plantbook.category}
+										</Descriptions.Item>
+										<Descriptions.Item label="Происхождение" span={1}>
+											{plantbook.origin}
+										</Descriptions.Item>
+									</>
+								)}
+								<Descriptions.Item
+									label="Комната"
+									span={2}
+									style={{
+										display: "flex",
+										justifyContent: "space-between",
+										alignItems: "center",
+										minWidth: 210,
+									}}>
+									<EditableRoomSelect
+										roomName={getRoomName(plant.roomId)}
+										currentRoomId={plant.roomId}
+										onRoomUpdate={handleRoomUpdate}></EditableRoomSelect>
 								</Descriptions.Item>
 							</Descriptions>
 						</Card>
-					)}
-					<Card className={styles.roomCard}>
-						<div style={{ display: "flex" }}>
-							<div style={{ flex: "0 0 80%" }}>
-								<PlantActionsTable plantActions={plant.actions} />
+						{plantbook != null && (
+							<Card className={styles.roomCard}>
+								<Descriptions column={3}>
+									<Descriptions.Item label="💡">
+										{plantbook.care?.light}{" "}
+									</Descriptions.Item>
+									<Descriptions.Item label="💧">
+										{plantbook.care?.humid}
+									</Descriptions.Item>
+									<Descriptions.Item label="🌱">
+										{plantbook.care?.soil}
+									</Descriptions.Item>
+								</Descriptions>
+							</Card>
+						)}
+						<Card className={styles.roomCard}>
+							<div style={{ display: "flex" }}>
+								<div style={{ flex: "0 0 80%" }}>
+									<PlantActionsTable plantActions={plant.actions} />
+								</div>
+								<div>
+									<PlantActionButtons
+										plantId={plant.id}
+										onAction={handlePlantAction}
+									/>
+								</div>
 							</div>
-							<div>
-								<PlantActionButtons
-									plantId={plant.id}
-									onAction={handlePlantAction}
-								/>
-							</div>
-						</div>
-					</Card>
-				</Space>
+						</Card>
+					</Space>
 				)}
 			</div>
 		</div>
