@@ -32,6 +32,9 @@ npm install --workspaces
 Билд
 `npm run build`
 
+Запуск тестов
+`npm run dev`
+
 Запуск проверок линтера и форматера
 
 ```

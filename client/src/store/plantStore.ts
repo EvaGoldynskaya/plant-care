@@ -37,24 +37,30 @@ class PlantStore {
 	}
 
 	private persistData = () => {
-		localStorage.setItem("plants", JSON.stringify(this.plants))
-		localStorage.setItem("plantPage", String(this.page))
-		localStorage.setItem("plantTotal", String(this.total))
+		if (!globalThis.localStorage) return
+		globalThis.localStorage.setItem("plants", JSON.stringify(this.plants))
+		globalThis.localStorage.setItem("plantPage", String(this.page))
+		globalThis.localStorage.setItem("plantTotal", String(this.total))
 	}
 
 	private persistCurrentPlant = () => {
+		if (!globalThis.localStorage) return
 		if (this.currentPlant) {
-			localStorage.setItem("currentPlant", JSON.stringify(this.currentPlant))
+			globalThis.localStorage.setItem(
+				"currentPlant",
+				JSON.stringify(this.currentPlant)
+			)
 		} else {
-			localStorage.removeItem("currentPlant")
+			globalThis.localStorage.removeItem("currentPlant")
 		}
 	}
 
 	private clearStorage = () => {
-		localStorage.removeItem("plants")
-		localStorage.removeItem("currentPlant")
-		localStorage.removeItem("plantPage")
-		localStorage.removeItem("plantTotal")
+		if (!globalThis.localStorage) return
+		globalThis.localStorage.removeItem("plants")
+		globalThis.localStorage.removeItem("currentPlant")
+		globalThis.localStorage.removeItem("plantPage")
+		globalThis.localStorage.removeItem("plantTotal")
 	}
 
 	fetchPlants = async (name?: string) => {
@@ -177,6 +183,8 @@ class PlantStore {
 				if (index !== -1) {
 					this.plants[index] = { ...plant, actions: actionsData }
 					plantById = this.plants[index]
+				} else {
+					plantById = { ...plant, actions: actionsData }
 				}
 				this.currentPlant = plantById
 				this.persistData()
