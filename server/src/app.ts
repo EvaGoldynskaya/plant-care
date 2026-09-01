@@ -14,6 +14,7 @@ const vercelUrl = process.env.VERCEL_URL
 const allowedOrigins = [
 	"http://localhost:5173",
 	"http://localhost:3000",
+	"https://plant-care-pearl.vercel.app",
 	...(vercelUrl ? [vercelUrl] : []),
 ]
 
