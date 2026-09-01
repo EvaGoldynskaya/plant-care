@@ -2,6 +2,9 @@
   "name": "plant-care-app",
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "workspaces": [
     "client",
     "server"
