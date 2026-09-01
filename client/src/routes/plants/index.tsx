@@ -10,6 +10,7 @@ import RoomsList from "./components/RoomsList"
 import PlantListHeader from "./components/PlantListHeader"
 import roomStore from "../../store/roomStore"
 import styles from "./PlantPage.module.css"
+import plantbookStore from "../../store/plantbookStore"
 
 const PlantsPage = observer(() => {
 	const navigate = useNavigate()
@@ -41,6 +42,8 @@ const PlantsPage = observer(() => {
 
 	const handleLogout = () => {
 		plantStore.resetPlants()
+		roomStore.resetRooms()
+		plantbookStore.reset()
 		authStore.logout()
 		navigate("/auth")
 	}
