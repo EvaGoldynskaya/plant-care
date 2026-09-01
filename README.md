@@ -24,13 +24,24 @@ npm install --workspaces
 ```
 
 Генерация клиента для prisma
-`npm run prisma:generate`
+```
+npm run prisma:generate
+```
 
 Миграция бд из схемы
-`npm run prisma:migrate --name init_migration`
+```
+npm run prisma:migrate --name init_migration
+```
 
 Билд
-`npm run build`
+```
+npm run build
+```
+
+Запуск тестов
+```
+npm run dev
+```
 
 Запуск проверок линтера и форматера
 
@@ -40,7 +51,9 @@ npm run format:check
 ```
 
 Запуск приложения в dev режиме
-`npm run dev`
+```
+npm run dev
+```
 
-При добавлении растения его вид лучше искать на английском языке, на русском будет меньший выбор.
+При добавлении растения его вид лучше искать на английском языке, на русском будет меньший выбор. 
 Так же для корректной работы с open.plantbook.io лучше включит впн.
