@@ -7,8 +7,31 @@ import routes from "./routes"
 
 const app = express()
 
+const vercelUrl = process.env.VERCEL_URL
+	? `https://${process.env.VERCEL_URL}`
+	: undefined
+
+const allowedOrigins = [
+	"http://localhost:5173",
+	"http://localhost:3000",
+	...(vercelUrl ? [vercelUrl] : []),
+]
+
 app.use(helmet())
-app.use(cors())
+app.use(
+	cors({
+		origin: (origin, callback) => {
+			if (!origin || allowedOrigins.includes(origin)) {
+				callback(null, true)
+				return
+			}
+			callback(new Error("Not allowed by CORS"))
+		},
+		credentials: true,
+		methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+		allowedHeaders: ["Content-Type", "Authorization"],
+	})
+)
 app.use(express.json())
 app.use(morgan("dev"))
 
@@ -17,15 +40,6 @@ app.use(routes)
 app.get("/health", (_req: Request, res: Response) => {
 	res.status(200).json({ status: "ok" })
 })
-
-app.use(
-	cors({
-		origin: "http://localhost:5173",
-		credentials: true,
-		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-		allowedHeaders: ["Content-Type", "Authorization"],
-	})
-)
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 	console.error(err)
