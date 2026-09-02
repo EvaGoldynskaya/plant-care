@@ -94,7 +94,7 @@ export const roomApi = {
 		return res.data.room
 	},
 	updateRoom: async (id: number, room: RoomRequest): Promise<Room> => {
-		const res = await api.post<RoomMutationResponse>(`/updateRoom/${id}`, room)
+		const res = await api.put<RoomMutationResponse>(`/updateRoom/${id}`, room)
 		return res.data.room
 	},
 	deleteRoom: async (id: number): Promise<Room> => {
