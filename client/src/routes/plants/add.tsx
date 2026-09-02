@@ -10,7 +10,7 @@ import {
 	Space,
 	Typography,
 } from "antd"
-import { ArrowLeftOutlined } from "@ant-design/icons"
+import { ArrowLeftOutlined, QuestionCircleOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 import plantStore from "../../store/plantStore"
 import PlantSearchInput from "./components/PlantSearchInput"
@@ -20,7 +20,7 @@ import plantbookStore from "../../store/plantbookStore"
 import roomStore from "../../store/roomStore"
 import styles from "./PlantPage.module.css"
 
-const { Title } = Typography
+const { Title, Text } = Typography
 
 interface PlantFormValues {
 	name: string
@@ -111,7 +111,17 @@ const PlantAddPage = observer(() => {
 
 						<Form.Item
 							name="commonName"
-							label="Вид растения"
+							label={
+								<Flex gap={10}>
+									<Text>Вид растения</Text>
+									<Text type="secondary">
+										<QuestionCircleOutlined
+											style={{ color: "#7aad8c", fontSize: 12, marginRight: 4 }}
+										/>
+										Введите вид растения на английском языке
+									</Text>
+								</Flex>
+							}
 							rules={[{ required: true, message: "Введите вид растения" }]}>
 							<PlantSearchInput
 								onSelect={handlePlantSelect}
